@@ -33,6 +33,12 @@ function init() {
     turn = "X"; 
     winner = false;
     tie = false;
+    squareEls.forEach((square) => {
+                square.style.background = "black";
+                square.style.color= "azure";
+                square.classList.remove("filled");    
+            })
+    messageEl.classList.remove("extended");
     render();
 }
 
@@ -58,7 +64,8 @@ function updateMessage() {
             messageEl.textContent = "ITS A TIE";
             return;
     } else {
-            messageEl.textContent = "CONGRATS YOU WON";
+            messageEl.innerHTML = "CONGRATS YOU WON<br><span style=\"font-size: 20px\">Click on a square to restart</span>";
+            requestAnimationFrame(() => {messageEl.classList.add("extended")});
             return;
         }
 }
@@ -66,10 +73,17 @@ function updateMessage() {
 function handleClick(event) {
     const squareIndex = event.target.id;
     console.log(squareIndex);
-    if (board[squareIndex]) {
+    
+    if (winner) {
+        init();
+        placePiece(squareIndex);
+        checkForWinner();
+        checkForTie();
+        switchPlayerTurn();
+        render();
         return;
     }
-    if (winner) {
+    if (board[squareIndex]) {
         return;
     }
     placePiece(squareIndex);
@@ -81,6 +95,7 @@ function handleClick(event) {
 
 function placePiece(index) {
     board[index] = turn;
+    squareEls[index].classList.add("filled");
     console.log(board);
 }
 
@@ -92,6 +107,10 @@ function checkForWinner() {
             board[combo[0]] === board[combo[2]])
          {
             winner = true;
+            combo.forEach((square) => {
+                squareEls[square].style.background = "azure";
+                squareEls[square].style.color= "black";    
+            })
             console.log("winner!!!!");   
         }
     })

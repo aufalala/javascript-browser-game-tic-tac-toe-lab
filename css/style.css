@@ -1,11 +1,13 @@
 body {
-  background-color: gainsboro;
+  background-color: rgb(72, 72, 72);
+  color: azure;
   /* Use a system font, if none are available use an available sans-sarif */
   font-family: system-ui, sans-serif;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  place-items: center;
 }
 
 .board {
@@ -13,7 +15,8 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  border: 2px solid black;
+  border: 2px solid azure;
+  background-color: black;
   width: 325px;
   aspect-ratio: 1/1;
 }
@@ -21,13 +24,42 @@ body {
 .sqr {
   width: 33%;
   aspect-ratio: 1/1;
-  border: 3px solid black;
-  font-size: 64px;
+  border: 3px solid azure;
+  background-color: black;
+  color: azure;
+  /* font-size: 400%; */
+  padding: 0;
   text-align: center;
+  align-items: center;
+  align-content: center;
   box-sizing: border-box;
+  transition: background 0.9s ease, color 0.9s ease, opacity 0.9s ease, font-size 0.9s ease;
+  opacity: 0.5;
+  font-size: 0;
+}
+
+.sqr.filled {
+    opacity: 1;
+    font-size: 400%;
+}
+
+#message {
+  overflow: hidden;
+  max-height: 1.5em;
+  transition: max-height 2s ease;
+}
+
+#message.extended {
+  max-height: 100px;
 }
 
 #reset {
+    font-family: system-ui, sans-serif;
     font-size: 2em;
-    margin: 2em;
+    margin: 1em;
+}
+
+#mainBlock {
+    text-align: center;
+    margin: auto;
 }
